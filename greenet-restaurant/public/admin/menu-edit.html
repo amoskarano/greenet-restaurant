@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Menu</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Menu Editor</h1>
+        <button onclick="window.location.href='admin.html'" class="btn">Back to Dashboard</button>
+        <button onclick="logout()" class="btn logout-btn">Logout</button>
+    </header>
+    
+    <main class="admin-container">
+        <form id="addItemForm">
+            <div class="form-group">
+                <label>Item Name:</label>
+                <input type="text" id="itemName" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Price (Ksh):</label>
+                <input type="number" id="itemPrice" min="0" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Category:</label>
+                <select id="itemCategory" required>
+                    <option value="Main">Main Dish</option>
+                    <option value="Sides">Sides</option>
+                    <option value="Drinks">Drinks</option>
+                    <option value="Desserts">Desserts</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Image Filename:</label>
+                <input type="text" id="itemImage" placeholder="burger.jpg">
+            </div>
+            
+            <div class="form-group">
+                <label>Description:</label>
+                <textarea id="itemDescription"></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Add Menu Item</button>
+        </form>
+        
+        <div class="current-menu">
+            <h2>Current Menu Items</h2>
+            <div id="currentItemsList"></div>
+        </div>
+    </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <script src="../scripts/firebase.js"></script>
+    <script src="../scripts/admin.js"></script>
+</body>
+</html>

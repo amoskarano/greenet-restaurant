@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GREENET Restaurant</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to GREENET</h1>
+    <div class="nav-buttons">
+      <a href="menu.html" class="btn">View Menu</a>
+      <!-- Admin Login Button (always visible) -->
+      <a href="login.html" class="btn admin-btn">Admin Login</a>
+    </div>
+  </header>
+
+  <main class="hero">
+    <div class="hero-content">
+      <h2>Authentic Cuisine</h2>
+      <p>Experience the finest dishes in Nairobi</p>
+      <a href="menu.html" class="btn btn-large">Order Now</a>
+    </div>
+  </main>
+
+  <!-- Firebase must be loaded first -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="/scripts/firebase.js"></script>
+  
+  <!-- Simple script to handle logout if somehow shown -->
+  <script>
+    // Check if logout parameter exists in URL
+    if (window.location.search.includes('logout')) {
+      auth.signOut().then(() => {
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
+</html>

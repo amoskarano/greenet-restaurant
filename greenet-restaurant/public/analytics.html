@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Restaurant Analytics</h1>
+        <button onclick="logout()" class="btn logout-btn">Logout</button>
+    </header>
+    <main class="analytics-container">
+        <div class="chart-container">
+            <canvas id="salesChart"></canvas>
+        </div>
+        <div class="metrics-container">
+            <div class="metric-card">
+                <h3>Today's Revenue</h3>
+                <p id="todayRevenue">Ksh 0</p>
+            </div>
+            <div class="metric-card">
+                <h3>Top Item</h3>
+                <p id="topItem">Loading...</p>
+            </div>
+        </div>
+    </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <script src="scripts/firebase.js"></script>
+    <script src="scripts/analytics.js"></script>
+</body>
+</html>

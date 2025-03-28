@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Registration</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+<body>
+  <div id="registration-form">
+    <h2>Admin Registration</h2>
+    <input type="hidden" id="inviteCode">
+    <input type="email" id="email" placeholder="Your Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="registerAdmin()">Complete Registration</button>
+  </div>
+
+  <script>
+    // Initialize Firebase
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('inviteCode').value = urlParams.get('code');
+
+    async function registerAdmin() {
+      const code = document.getElementById('inviteCode').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        // 1. Verify invite code
+        const invite = await db.collection('adminInvites').doc(code).get();
+        if (!invite.exists || invite.data().used || new Date() > invite.data().expiresAt) {
+          throw new Error('Invalid or expired invitation');
+        }
+
+        // 2. Create user
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        
+        // 3. Mark as admin
+        await db.collection('adminUsers').doc(userCredential.user.uid).set({
+          email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        // 4. Mark invite as used
+        await db.collection('adminInvites').doc(code).update({ used: true });
+
+        alert('Registration successful!');
+        window.location.href = '/admin.html';
+      } catch (error) {
+        console.error(error);
+        alert('Registration failed: ' + error.message);
+      }
+    }
+  </script>
+</body>
+</html>

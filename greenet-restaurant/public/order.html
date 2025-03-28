@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Place Order</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <header>
+    <h1>Place Your Order</h1>
+  </header>
+  <main>
+    <div class="order-container" id="orderMenu"></div>
+    <div class="order-controls">
+      <div class="form-group">
+        <label for="tableNumber">Table Number:</label>
+        <select id="tableNumber" required>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <!-- ... up to 8 -->
+        </select>
+      </div>
+      <div class="sms-optin">
+        <input type="checkbox" id="enableSMS">
+        <label for="enableSMS">Send SMS updates</label>
+        <input type="tel" id="customerPhone" placeholder="07XXXXXXXX" pattern="[0-9]{10}" disabled>
+      </div>
+      <button id="submitOrder" class="btn">Submit Order</button>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  
+  <script src="/scripts/firebase.js"></script>
+  <script src="scripts/menu.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>

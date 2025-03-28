@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Setup 2FA</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <div class="auth-container">
+    <h1>Setup Two-Factor Authentication</h1>
+    <div id="2faSetup">
+      <p>Scan this QR code with your authenticator app:</p>
+      <img id="qrCode" alt="QR Code">
+      <p>Or enter this code manually:</p>
+      <div class="manual-code" id="manualCode"></div>
+      <button onclick="verify2FASetup()" class="btn">Verify Setup</button>
+    </div>
+  </div>
+  <script src="../scripts/firebase.js"></script>
+  <script src="../scripts/setup-2fa.js"></script>
+</body>
+</html>

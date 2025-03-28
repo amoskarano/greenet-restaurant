@@ -1,0 +1,13 @@
+{
+    "name": "greenet-restaurant",
+    "version": "1.0.0",
+    "dependencies": {
+        "firebase": "^8.10.0",
+        "@sendgrid/mail": "^7.7.0",
+        "speakeasy": "^2.0.0",
+        "qrcode": "^1.5.1"
+    },
+    "devDependencies": {
+        "netlify-lambda": "^2.0.15"
+    }
+}

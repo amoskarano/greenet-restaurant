@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Our Menu</h1>
+        <div class="table-selector">
+            <span>Table:</span>
+            <select id="tableSelect">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+        </div>
+    </header>
+    
+    <main>
+        <div class="menu-container" id="menuDisplay"></div>
+        
+        <div class="quick-order-bar">
+            <div id="quickOrderSummary">
+                <p>No items selected</p>
+            </div>
+            <div class="order-actions">
+                <span>Total: Ksh <span id="quickOrderTotal">0</span></span>
+                <button id="confirmQuickOrder" class="btn">Order Now</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    
+    <script src="/scripts/firebase.js"></script>
+    <script src="scripts/menu.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>

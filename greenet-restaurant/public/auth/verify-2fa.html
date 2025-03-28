@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify 2FA</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Two-Factor Verification</h1>
+        <div class="form-group">
+            <input type="text" id="tfaCode" placeholder="6-digit code" maxlength="6">
+        </div>
+        <button onclick="verifyCode()" class="btn">Verify</button>
+        <p class="tfa-help">Open your authenticator app to get your verification code</p>
+    </div>
+    
+    <script src="scripts/firebase.js"></script>
+    <script>
+        async function verifyCode() {
+            const code = document.getElementById('tfaCode').value;
+            if (!code || code.length !== 6) {
+                alert('Please enter a valid 6-digit code');
+                return;
+            }
+
+            try {
+                const verify2FA = firebase.functions().httpsCallable('verify2FA');
+                await verify2FA({ code });
+                window.location.href = '/admin.html';
+            } catch (error) {
+                console.error(error);
+                alert('Verification failed: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>

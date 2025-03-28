@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Management</title>
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Management</h1>
+    <button onclick="logout()" class="btn logout-btn">Logout</button>
+  </header>
+
+  <main class="admin-container">
+    <div class="admin-card">
+      <h2>Invite New Admin</h2>
+      <div class="form-group">
+        <input type="email" id="inviteEmail" placeholder="admin@example.com">
+        <button onclick="sendInvite()" class="btn">Send Invite</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h2>Current Admins</h2>
+      <div id="adminsList"></div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-functions.js"></script>
+  
+  <script>
+    const functions = firebase.functions();
+    
+    async function sendInvite() {
+      const email = document.getElementById('inviteEmail').value;
+      if (!email) return alert('Email required');
+      
+      try {
+        const sendInvite = functions.httpsCallable('sendInviteEmail');
+        const { data: inviteLink } = await sendInvite({ email });
+        
+        // For demo purposes - in production this would be emailed
+        console.log('Invite link (would be emailed):', inviteLink);
+        alert(`Invite sent to ${email}`);
+      } catch (error) {
+        console.error(error);
+        alert('Invite failed: ' + error.message);
+      }
+    }
+
+    // Load current admins
+    db.collection('adminUsers').onSnapshot(snapshot => {
+      const container = document.getElementById('adminsList');
+      container.innerHTML = '';
+      
+      snapshot.forEach(doc => {
+        const admin = doc.data();
+        container.innerHTML += `
+          <div class="admin-item">
+            <span>${admin.email}</span>
+            <span>${new Date(admin.createdAt?.toDate()).toLocaleDateString()}</span>
+            <button onclick="revokeAdmin('${doc.id}')" class="btn btn-danger">
+              Revoke
+            </button>
+          </div>
+        `;
+      });
+    });
+
+    async function revokeAdmin(uid) {
+      if (!confirm('Revoke admin access?')) return;
+      
+      try {
+        await db.collection('adminUsers').doc(uid).delete();
+        // In production, also remove custom claims via Cloud Function
+      } catch (error) {
+        console.error(error);
+        alert('Revoke failed');
+      }
+    }
+  </script>
+</body>
+</html>
